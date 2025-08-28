@@ -5,7 +5,7 @@ import { integer, pgTable, boolean, varchar, date, serial, timestamp } from 'dri
 export const users = pgTable('users', {
   id: serial('id').primaryKey(),
   verify: boolean('verify').default(false),
-  name: varchar('name', { length: 100 }).notNull(),
+  firstName: varchar('firstName', { length: 100 }).notNull(),
   lastname: varchar('lastname', { length: 100 }).notNull(),
   email: varchar('email', { length: 255 }).unique().notNull(),
   password: varchar('password', { length: 255 }).notNull(),
