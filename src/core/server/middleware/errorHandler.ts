@@ -1,29 +1,10 @@
-// middlewares/errorHandler.ts
-import { Request, Response, NextFunction } from "express";
-
-// Tipos para errores
-export interface AppError extends Error {
-  statusCode: number;
-  errorCode?: string;
-}
-
-export interface ValidationError extends AppError {
-  type: "VALIDATION_ERROR";
-}
-
-export interface DatabaseError extends AppError {
-  type: "DATABASE_ERROR";
-  dbErrorCode?: string;
-}
-
-export interface ConflictError extends AppError {
-  type: "CONFLICT_ERROR";
-}
+import { Response } from "express";
+import { AppError, ConflictError, DatabaseError, ValidationError } from "../../../shared/types";
 
 // Factory functions para crear errores
 export const createAppError = (
-  message: string, 
-  statusCode: number = 500, 
+  message: string,
+  statusCode: number = 500,
   errorCode?: string
 ): AppError => {
   const error = new Error(message) as AppError;
@@ -52,7 +33,6 @@ export const createConflictError = (message: string): ConflictError => {
   return error;
 };
 
-// Type guard functions
 export const isAppError = (error: unknown): error is AppError => {
   return error instanceof Error && "statusCode" in error;
 };
@@ -72,29 +52,30 @@ export const isConflictError = (error: unknown): error is ConflictError => {
 // Manejador de errores
 export const errorHandler = (
   error: unknown,
-  req: Request,
-  res: Response,
-  next: NextFunction
+
+  res: Response
 ) => {
   // Manejo de errores de base de datos PostgreSQL
   if (typeof error === "object" && error !== null && "code" in error) {
     const dbError = error as { code: string };
-    
-    if (dbError.code === "23505") { // Violación de constraint único
+
+    if (dbError.code === "23505") {
+      // Violación de constraint único
       return res.status(409).json({
         success: false,
         message: "El recurso ya existe",
         error: "DUPLICATE_ENTRY",
-        ...(process.env.NODE_ENV === "development" && { details: error })
+        ...(process.env.NODE_ENV === "development" && { details: error }),
       });
     }
-    
-    if (dbError.code === "23503") { // Violación de foreign key
+
+    if (dbError.code === "23503") {
+      // Violación de foreign key
       return res.status(400).json({
         success: false,
         message: "Referencia inválida",
         error: "FOREIGN_KEY_VIOLATION",
-        ...(process.env.NODE_ENV === "development" && { details: error })
+        ...(process.env.NODE_ENV === "development" && { details: error }),
       });
     }
   }
@@ -105,23 +86,23 @@ export const errorHandler = (
       success: false,
       message: error.message,
       error: error.errorCode || error.name,
-      ...(process.env.NODE_ENV === "development" && { 
+      ...(process.env.NODE_ENV === "development" && {
         stack: error.stack,
-        ...(isDatabaseError(error) && { dbErrorCode: error.dbErrorCode })
+        ...(isDatabaseError(error) && { dbErrorCode: error.dbErrorCode }),
       }),
     });
   }
 
   // Error genérico no manejado
   console.error("Error no manejado:", error);
-  
+
   res.status(500).json({
     success: false,
     message: "Error interno del servidor",
     error: "INTERNAL_SERVER_ERROR",
-    ...(process.env.NODE_ENV === "development" && { 
+    ...(process.env.NODE_ENV === "development" && {
       stack: error instanceof Error ? error.stack : undefined,
-      details: error 
+      details: error,
     }),
   });
 };
