@@ -1,6 +1,6 @@
-import { Request, Response } from "express";
+import { Response } from "express";
 
-export const logout = (req: Request, res: Response) => {
+export const logout = (res: Response) => {
   try {
     const isProduction = process.env.NODE_ENV === "production";
 
