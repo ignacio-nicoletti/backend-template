@@ -32,17 +32,14 @@ export const register = async (req: Request, res: Response) => {
       const userResult = await tx
         .insert(users)
         .values({
-          firstName: name || "",
-          lastname: lastName || "",
+          firstName: name,
+          lastName: lastName,
           email: email,
           password: hashedPassword,
-          phone: phone || "",
-          verify: true,
-          dni: "",
-          lastLogin: new Date().toISOString(),
+          phone: phone,
+          dni: 0,
+          lastLogin: new Date(),
           imageProfile: "",
-          aadmission: new Date().toISOString(),
-          state: true,
         })
         .returning();
 
