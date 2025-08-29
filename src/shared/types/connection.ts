@@ -11,4 +11,5 @@ export type AppConfig = {
   env: "development" | "production" | "test";
   port: number;
   db: DBConfig;
+  encryptionKey: string;
 };

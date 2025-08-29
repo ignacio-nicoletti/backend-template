@@ -7,7 +7,7 @@ import bcrypt from "bcrypt";
 const BCRYPT_SALT_ROUNDS = 10;
 
 export const register = async (req: Request, res: Response) => {
-  const { name, lastName, email, password, roleName, phone } = req.body;
+  const { name, lastName, email, password, phone } = req.body;
 
   try {
     // Validaciones
@@ -27,7 +27,7 @@ export const register = async (req: Request, res: Response) => {
     const hashedPassword = await bcrypt.hash(password, BCRYPT_SALT_ROUNDS);
 
     // Usar transaction
-    const result = await db.transaction(async (tx) => {
+    await db.transaction(async (tx) => {
       // Insertar usuario dentro de la transacción
       const userResult = await tx
         .insert(users)

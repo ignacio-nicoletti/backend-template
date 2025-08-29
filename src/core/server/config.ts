@@ -30,14 +30,14 @@ const dbConfig: Record<typeof env, DBConfig> = {
   },
 };
 
-// const encryptionKey = process.env.ENCRYPTION_KEY;
-// if (!encryptionKey) {
-//   throw new Error("ENCRYPTION_KEY no está configurada en las variables de entorno");
-// }
+const encryptionKey = process.env.ENCRYPTION_KEY;
+if (!encryptionKey) {
+  throw new Error("ENCRYPTION_KEY no está configurada en las variables de entorno");
+}
 
 export const config: AppConfig = {
   env,
   port: Number(process.env.PORT) || 3000,
   db: dbConfig[env],
-  // encryptionKey, // Ahora es required
+  encryptionKey,
 };
