@@ -1,11 +1,11 @@
 declare global {
   namespace Express {
     interface Request {
-      user?: any;
+      user?: any
     }
   }
 }
 
 export type TokenPayload = {
-  userId: string | number;
-};
+  userId: string | number
+}

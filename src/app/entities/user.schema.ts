@@ -1,6 +1,6 @@
-import { integer, pgTable, boolean, varchar, date, serial, timestamp } from "drizzle-orm/pg-core";
+import { integer, pgTable, boolean, varchar, date, serial, timestamp } from 'drizzle-orm/pg-core'
 
-export const users = pgTable("users", {
+export const users = pgTable('users', {
   id: serial().primaryKey(),
   verify: boolean().default(false),
   firstName: varchar({ length: 100 }).notNull(),
@@ -16,4 +16,4 @@ export const users = pgTable("users", {
 
   createdAt: timestamp().defaultNow(),
   updatedAt: timestamp().defaultNow(),
-});
+})

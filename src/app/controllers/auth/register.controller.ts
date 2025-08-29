@@ -1,30 +1,30 @@
-import { Request, Response } from "express";
-import { users } from "../../entities";
-import { db } from "../../../core/database";
-import { createValidationError } from "../../../core/server/middleware/errorHandler";
-import bcrypt from "bcrypt";
+import { Request, Response } from 'express'
+import { users } from '../../entities'
+import { db } from '../../../core/database'
+import { createValidationError } from '../../../core/server/middleware/errorHandler'
+import bcrypt from 'bcrypt'
 
-const BCRYPT_SALT_ROUNDS = 10;
+const BCRYPT_SALT_ROUNDS = 10
 
 export const register = async (req: Request, res: Response) => {
-  const { name, lastName, email, password, phone } = req.body;
+  const { name, lastName, email, password, phone } = req.body
 
   try {
     // Validaciones
     if (!name || !lastName || !email || !password) {
-      throw createValidationError("Nombre, apellido, email y password son requeridos");
+      throw createValidationError('Nombre, apellido, email y password son requeridos')
     }
 
     if (password.length < 6) {
-      throw createValidationError("La contraseña debe tener al menos 6 caracteres");
+      throw createValidationError('La contraseña debe tener al menos 6 caracteres')
     }
 
     if (!/\S+@\S+\.\S+/.test(email)) {
-      throw createValidationError("El formato del email no es válido");
+      throw createValidationError('El formato del email no es válido')
     }
 
     // Hash de la contraseña
-    const hashedPassword = await bcrypt.hash(password, BCRYPT_SALT_ROUNDS);
+    const hashedPassword = await bcrypt.hash(password, BCRYPT_SALT_ROUNDS)
 
     // Usar transaction
     await db.transaction(async (tx) => {
@@ -39,19 +39,19 @@ export const register = async (req: Request, res: Response) => {
           phone: phone,
           dni: 0,
           lastLogin: new Date(),
-          imageProfile: "",
+          imageProfile: '',
         })
-        .returning();
+        .returning()
 
-      return userResult;
-    });
+      return userResult
+    })
 
     // Respuesta exitosa fuera de la transacción
     res.status(201).json({
       success: true,
-      message: "Usuario creado exitosamente",
-    });
+      message: 'Usuario creado exitosamente',
+    })
   } catch (error) {
-    throw error;
+    throw error
   }
-};
+}
