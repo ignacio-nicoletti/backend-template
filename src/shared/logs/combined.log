@@ -30,3 +30,7 @@
 {"level":"info","message":"🚀 Servidor corriendo en el puerto: 3000","timestamp":"2025-08-29 14:54:51"}
 {"level":"info","message":"🌎 Entorno: development","timestamp":"2025-08-29 14:54:51"}
 {"level":"info","message":"📅 Iniciado el: 29/8/2025, 2:54:51 p.m.","timestamp":"2025-08-29 14:54:51"}
+{"level":"info","message":"🚀 Servidor corriendo en el puerto: 3000","timestamp":"2025-09-01 09:42:50"}
+{"level":"info","message":"🌎 Entorno: development","timestamp":"2025-09-01 09:42:50"}
+{"level":"info","message":"📅 Iniciado el: 1/9/2025, 9:42:50 a.m.","timestamp":"2025-09-01 09:42:50"}
+{"level":"info","message":"🛑 Recibida señal SIGINT. Cerrando servidor...","timestamp":"2025-09-01 10:02:28"}
