@@ -34,3 +34,20 @@
 {"level":"info","message":"🌎 Entorno: development","timestamp":"2025-09-01 09:42:50"}
 {"level":"info","message":"📅 Iniciado el: 1/9/2025, 9:42:50 a.m.","timestamp":"2025-09-01 09:42:50"}
 {"level":"info","message":"🛑 Recibida señal SIGINT. Cerrando servidor...","timestamp":"2025-09-01 10:02:28"}
+{"level":"info","message":"🚀 Servidor corriendo en el puerto: 3000","timestamp":"2025-09-01 12:43:16"}
+{"level":"info","message":"🌎 Entorno: development","timestamp":"2025-09-01 12:43:16"}
+{"level":"info","message":"📅 Iniciado el: 1/9/2025, 12:43:16 p.m.","timestamp":"2025-09-01 12:43:16"}
+{"level":"info","message":"🛑 Recibida señal SIGINT. Cerrando servidor...","timestamp":"2025-09-01 12:45:09"}
+{"level":"info","message":"🚀 Servidor corriendo en el puerto: 3000","timestamp":"2025-09-01 12:45:12"}
+{"level":"info","message":"🌎 Entorno: development","timestamp":"2025-09-01 12:45:12"}
+{"level":"info","message":"📅 Iniciado el: 1/9/2025, 12:45:12 p.m.","timestamp":"2025-09-01 12:45:12"}
+{"level":"info","message":"🛑 Recibida señal SIGINT. Cerrando servidor...","timestamp":"2025-09-01 13:19:33"}
+{"level":"info","message":"🚀 Servidor corriendo en el puerto: 3000","timestamp":"2025-09-01 13:19:36"}
+{"level":"info","message":"🌎 Entorno: development","timestamp":"2025-09-01 13:19:36"}
+{"level":"info","message":"📅 Iniciado el: 1/9/2025, 1:19:36 p.m.","timestamp":"2025-09-01 13:19:36"}
+{"level":"info","message":"🛑 Recibida señal SIGINT. Cerrando servidor...","timestamp":"2025-09-01 14:52:05"}
+{"level":"error","message":"⏳ Timeout: Forzando cierre del servidor","timestamp":"2025-09-01 14:52:15"}
+{"level":"info","message":"🚀 Servidor corriendo en el puerto: 3000","timestamp":"2025-09-01 15:08:49"}
+{"level":"info","message":"🌎 Entorno: development","timestamp":"2025-09-01 15:08:49"}
+{"level":"info","message":"📅 Iniciado el: 1/9/2025, 3:08:49 p.m.","timestamp":"2025-09-01 15:08:49"}
+{"level":"info","message":"🛑 Recibida señal SIGINT. Cerrando servidor...","timestamp":"2025-09-01 15:20:23"}

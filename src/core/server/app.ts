@@ -1,76 +1,38 @@
-// src/app.ts
 import express from "express";
 import cors from "cors";
 import { Server } from "socket.io";
-import { setupSwagger } from "./swagger";
-import { config } from "./config";
-import type { Request, Response, NextFunction } from "express";
-import type { DBConfig } from "../../shared/types";
-
-import userRoutes from "../../app/routes/user.route";
-import { errorHandler } from "./middleware/errorHandler";
 import { createServer } from "http";
-
-const env = process.env.NODE_ENV || "development";
-const dbConfig: DBConfig = config.db;
+import type { Request, Response } from "express";
+import GeneralSocket from "./services/socketService";
 
 const app = express();
+const server = createServer(app);
 
-setupSwagger(app);
-
-const httpServer = createServer(app);
-const io = new Server(httpServer);
-
-// Opciones de CORS con tipo correcto
-const corsOptions: cors.CorsOptions = {
-  origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
-    // Permitir requests sin origin (como mobile apps o curl requests)
-    if (!origin) {
-      callback(null, true);
-      return;
-    }
-
-    if (dbConfig.whiteList.includes(origin)) {
-      callback(null, true);
-    } else {
-      console.warn(`Bloqueado por CORS: ${origin}`);
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true,
-  methods: "GET,POST,PUT,DELETE,OPTIONS",
-  allowedHeaders: "Content-Type,Authorization",
-  exposedHeaders: "set-cookie",
-};
 
 app.use(express.json());
-app.use(cors(corsOptions));
-app.use(errorHandler);
-// Middleware para manejar errores de CORS
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-  if (err.message === "Not allowed by CORS") {
-    res.status(403).json({ error: "CORS policy blocked this request" });
-  } else {
-    next(err);
-  }
+app.use(cors());
+
+// Configuración de Socket.io
+const io = new Server(server, {
+  cors: {
+    origin: "*", // Permite todos los orígenes (ajusta en producción)
+    methods: ["GET", "POST"],
+  },
+  transports: ["websocket", "polling"],
 });
 
-//routes
+// Pasar la instancia de io al socket service
+GeneralSocket(io);
 
-io.on("connection", (socket) => {
-  console.log("a user connected");
-});
-
+// Ruta de health check
 app.get("/health", (req: Request, res: Response) => {
   res.status(200).json({
     status: "OK",
     message: "API is running",
-    environment: env,
     timestamp: new Date().toISOString(),
   });
 });
 
-app.use("/api/user", userRoutes);
-
-export { httpServer, io };
+// Exportar el server para que server.ts lo use
+export { server, io };
 export default app;
