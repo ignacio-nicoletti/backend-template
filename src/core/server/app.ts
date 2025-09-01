@@ -2,12 +2,11 @@ import express from "express";
 import cors from "cors";
 import { Server } from "socket.io";
 import { createServer } from "http";
-import type { Request, Response } from "express";
+import type { Response } from "express";
 import GeneralSocket from "./services/socketService";
 
 const app = express();
 const server = createServer(app);
-
 
 app.use(express.json());
 app.use(cors());
@@ -25,7 +24,7 @@ const io = new Server(server, {
 GeneralSocket(io);
 
 // Ruta de health check
-app.get("/health", (req: Request, res: Response) => {
+app.get("/health", (res: Response) => {
   res.status(200).json({
     status: "OK",
     message: "API is running",
