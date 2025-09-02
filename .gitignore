@@ -1,4 +1,4 @@
 /node_modules
 .env
 .idea
-./src/logs
+./src/shared/logs
