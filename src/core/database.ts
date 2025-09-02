@@ -26,7 +26,7 @@ const pool = new Pool(poolConfig);
 
 // Manejo de eventos del pool
 pool.on("connect", (client: PoolClient) => {
-  logger.debug("🔄 Nueva conexión establecida con la base de datos");
+  logger.debug("🔄 Nueva conexión establecida con la base de datos",client);
 });
 
 pool.on("error", (err: Error) => {

@@ -1,0 +1,4 @@
+{"level":"info","message":"🧪 Probando conexión a la base de datos...","timestamp":"2025-09-02 15:47:06"}
+{"level":"info","message":"✅ Conectado a la base de datos PostgreSQL","timestamp":"2025-09-02 15:47:06"}
+{"level":"info","message":"✅ Conexión exitosa a la base de datos","timestamp":"2025-09-02 15:47:06"}
+{"level":"info","message":"📊 Estado de salud de la DB: \"healthy\"","timestamp":"2025-09-02 15:47:06"}
