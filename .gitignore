@@ -2,3 +2,4 @@
 .env
 .idea
 ./src/shared/logs
+./drizzle
